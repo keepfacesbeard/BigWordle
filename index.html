@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>BIG Wordle - A daily word game</title>
+    <meta name="description" content="Guess the hidden word in 6 tries. A new puzzle is available each day.">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+
+  <body>
+    <script>
+      (function () {
+        // Defining the hash before the main bundle allows the bundle access window.hash
+        window.wordle = window.wordle || {};
+        window.wordle.hash = '674be805';
+      })();
+    </script>
+
+    <div class="main-container">
+        <div id="header">BIG Wordle, the Bigger Wordle</div>
+        <div id="subheader">This wordle has bigger words!</div>
+        <div id="popup" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">X</span>
+            <p></p>
+            <div id="popuptext"></div>
+          </div>
+        
+        </div>
+        <div id="gamearea">
+            <div id="wordboard">
+
+            </div>
+            <div id="keyboard">
+              <div id="keyrow1"></div>
+              <div id="keyrow2"></div>
+              <div id="keyrow3"></div>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+   <script src="./script.js"></script>
+</body>
+
+</html>
