@@ -48,16 +48,24 @@ body {
 #keyboard {
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
 }
-.key{
-    font-size: 40px;
+
+.keyboardkey{
+    font-size: 5vw;
     border: 2px black solid;
-    border-radius: 10px;
-    height: 70px;
-    width: 60px;
+    border-radius: 6px;
+    min-width: 1.7rem;
     text-align: center;
     text-justify: center;
-    padding: 1.5rem .5rem 0rem;
+    padding: 1vw 1vw;
+}
+.keyrow{
+    display: flex;
+    justify-content: center;
+}
+.keyboardkey{
+    margin: .7vw 1vw;
 }
 
 .inword {
