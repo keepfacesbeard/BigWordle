@@ -1,0 +1,2 @@
+# BigWordle
+A bigger Wordle
