@@ -62,7 +62,6 @@ body {
 
 /* modal copy paste */
 .modal {
-    display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 22.5%;
@@ -70,28 +69,35 @@ body {
     width: 55%; /* Full width */
     height: auto; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgb(0,110,0,0.9); /* Black w/ opacity */
+    background-color: rgba(202, 230, 202, 0.9); /* Black w/ opacity */
 
     
   }
   
   /* Modal Content/Box */
   .modal-content {
-    font-size: 60px;
+    display: inherit;
+    font-size: 55px;
+    color: black;
     text-align: center;
+    text-shadow: 1px .5px 1px linen;
     font-weight: 900;
     margin: 0;
-    padding: 2rem 2rem 2.5rem 2rem;
+    padding: 1.5rem 2rem 2.5rem 2rem;
     width: 90%; /* Could be more or less, depending on screen size */
   }
   
   /* The Close Button */
   .close {
-    color: #aaa;
+    font-size: 15px;
+    color: black;
+    border: black 1px solid;
     float: right;
+    padding: 6px 8px 4px;
+    border-radius: 10px;
     font-size: 28px;
     font-weight: bold;
+    margin-bottom: 10px;
   }
   
   .close:hover,

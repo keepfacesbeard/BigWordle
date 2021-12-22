@@ -23,20 +23,24 @@ function buildWordBoard() {
  function addLetter(e) {
     let letter = String.fromCharCode(e.keyCode);
     let endOfRow = activeRow * 6 + (activeRow-1);
+    //letters
     if (activeTile <= endOfRow && isLetter(letter)){
         let currentTile = document.getElementById(`tile${activeTile}`);
         currentTile.innerText = letter;
         ++activeTile;
     }
+    //enter
     else if (e.keyCode == 13) {
         let newGuess = checkGuess(activeRow);
      
     }
+    //backspace
     else if (e.keyCode == 8){
-        --activeTile
+        if (activeTile>0){
+            --activeTile
+        }
         let currentTile = document.getElementById(`tile${activeTile}`);
         currentTile.innerText = '';
-        
     }
     // if (e.repeat) return;
     // const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); //.key because key is class
@@ -46,27 +50,38 @@ function buildWordBoard() {
     // key.classList.add('playing'); //adds styling when selected but doesn't remove it
     
   };
-  function removeTransition(e) {
-    if (e.propertyName !== 'transform') return;
-   // console.log(this);  //this refers to the key, back from the arrow function call key.addeventlistener
-    this.classList.remove('playing');
-   // console.log(this);
-  }
- // setTimeout(playSound, 1000);
-  window.addEventListener('keydown', addLetter);
-  window.addEventListener('click', addLetter);
+
+window.addEventListener('keydown', addLetter);
+window.addEventListener('click', addLetter);
 
 
-//popup 
-const modal = document.getElementById("popup");
-const popup = document.getElementById("popuptext");
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-} 
-
+//popup
+const mainContainer = document.getElementById('main');
+function popupModal(text){
+    const modal = document.createElement('div');
+    modal.id = 'popup';
+    modal.classList.add('modal');
+    mainContainer.appendChild(modal);
+    const modalcontent = document.createElement('div');
+    modalcontent.classList.add('modal-content');
+    modal.appendChild(modalcontent);
+    const xbutton = document.createElement('span');
+    xbutton.classList.add('close');
+    xbutton.id = 'closebutton';
+    xbutton.innerText = 'X'
+    modalcontent.appendChild(xbutton);
+    const popup = document.createElement('div');
+    popup.id = 'popuptext';
+    modalcontent.appendChild(popup);
+    
+    popup.innerText = `\n${text}`;
+    xbutton.onclick = function() {
+        console.log("x clicked");
+        modal.remove();
+        // window.addEventListener('keydown', addLetter);
+        // window.addEventListener('click', addLetter);
+    } 
+}
 
 
 
@@ -93,6 +108,10 @@ window.onclick = function(event) {
         checkLetters(guess);
         ++activeRow
     }
+    else {
+        popupModal(guess.toUpperCase() + "  is not a valid word. Try again.");
+
+    }
  }
  function checkLetters(guess){
      let correctLetters = 0
@@ -102,10 +121,13 @@ window.onclick = function(event) {
             document.getElementById(`tile${tileIndex}`).classList.add('inplace');
             ++correctLetters;
             if (correctLetters == 7){
-                // alert("You won with " + activeRow + " guesses");
-                popup.innerText = `You won with ${activeRow} guesses.`;
-                modal.style.display = "block";
-                break;
+                if (activeRow ==1) {
+                    popupModal('Holy shit! A hole-in-one! \n You guessed it on the first try!')
+                    break;
+                }
+                else {
+                    popupModal(`You won with ${activeRow} guesses.`);
+                    break;  
             }
          }
          else {
@@ -115,12 +137,12 @@ window.onclick = function(event) {
                 }
             }
          }
-    }
+         }
     if (activeRow == 6 && correctLetters < 7){
         alert("You lost. Sorry. Better luck tomorrow.");
     }
+    }
 }
- 
 
     
 function isLetter(c) {
