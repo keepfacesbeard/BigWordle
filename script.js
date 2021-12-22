@@ -40,7 +40,7 @@ function buildWordBoard() {
             --activeTile
         }
         let currentTile = document.getElementById(`tile${activeTile}`);
-        currentTile.innerText = '';
+        currentTile.innerText = ' ';
     }
     // if (e.repeat) return;
     // const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); //.key because key is class
@@ -117,32 +117,28 @@ function popupModal(text){
      let correctLetters = 0
      for (let i=0; i<7; i++){
          let tileIndex = ((activeRow-1)*7) + i;
-         if (guess[i] == theAnswer[i]){
+        if (guess[i] == theAnswer[i]){
             document.getElementById(`tile${tileIndex}`).classList.add('inplace');
             ++correctLetters;
             if (correctLetters == 7){
-                if (activeRow ==1) {
-                    popupModal('Holy shit! A hole-in-one! \n You guessed it on the first try!')
-                    break;
-                }
-                else {
                     popupModal(`You won with ${activeRow} guesses.`);
                     break;  
+                }
             }
-         }
-         else {
+        else {
             for (let n=0; n<7; n++){
                 if (guess[i] == theAnswer[n] && n !== i){
                     document.getElementById(`tile${tileIndex}`).classList.add('inword');
                 }
             }
-         }
-         }
+        }
+        }
+    }
     if (activeRow == 6 && correctLetters < 7){
         alert("You lost. Sorry. Better luck tomorrow.");
     }
-    }
-}
+
+
 
     
 function isLetter(c) {
