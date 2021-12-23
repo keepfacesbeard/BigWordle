@@ -186,6 +186,7 @@ function popupModal(text){
                     popupModal(`You won with ${activeRow} guesses.`);
                     window.removeEventListener('keydown', typeLetter);
                     window.removeEventListener('click', clickLetter);
+                    randomword.addEventListener('click', randomNewWord);
                     break;  
                 }
             }
