@@ -25,6 +25,7 @@ body {
     margin-bottom: 1.2rem;
     text-justify: center;
     text-align: center;
+
 }
 #gamearea{
     display: flex;
@@ -91,6 +92,11 @@ body {
 
 .notinword{
     background-color: grey;
+}
+.playmode{
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    font-weight: 900;
 }
 
 /* modal copy paste */

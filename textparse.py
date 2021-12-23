@@ -1,28 +1,27 @@
+# create a test file
+from io import FileIO
 
-import json 
 
-   
-# Opening JSON file 
+filename = "sowpods.txt"
 
-f = open('dictionary.json',) 
+mod_list = []
+count = 1
+for line in FileIO(filename):
+    # strip ending whitespaces including newline char
+    line = line.rstrip()
+    # concatenate every two lines
+    if count % 2 == 0:
+        mod_list.append(line)
+    else:
+        old_line = line
+    count += 1
 
-   
-# returns JSON object as  
-# a dictionary 
 
-data = json.load(f) 
+dict = []
+for word in mod_list:
+    if len(word) == 7:
+        dict.append(word.upper())
+##this is a scrabble dictionary?
+print(len(dict))
+print(dict)
 
-   
-# Iterating through the json 
-# list 
-words = []
-for i in data: 
-    if len(i) == 7:
-        words.append(i)
-
-print(len(words))
-print(words[41996])
-
-wordlist = '","'.join(words)
-
-print(wordlist)
