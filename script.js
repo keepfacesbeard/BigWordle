@@ -28,19 +28,13 @@ function buildWordBoard() {
 
  const keyboard = document.getElementById('keyboard');
 
- function addLetter(e) {
+ function typeLetter(e) {
     let letter = ''
     let endOfRow = activeRow * 6 + (activeRow-1);
-    if (e.target.id && document.getElementById(e.target.id).className.includes('keyboardkey')==true){
-        letter = e.target.id;
-    }
-    else {
-        letter = String.fromCharCode(e.keyCode);
-    }
+    letter = String.fromCharCode(e.keyCode);
     //enter
-    if (e.keyCode == 13 || letter == 'enter') {
+    if (e.keyCode == 13) {
         let newGuess = checkGuess(activeRow);
-        letter = ''
     }
     //backspace
     else if (e.keyCode == 8 || letter == 'delete'){
@@ -58,17 +52,37 @@ function buildWordBoard() {
         ++activeTile;
     }
 
-    // if (e.repeat) return;
-    // const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); //.key because key is class
-    // if(!audio) return;
-    // audio.currentTime = 0; //rewinds
-    // audio.play();
-    // key.classList.add('playing'); //adds styling when selected but doesn't remove it
-    
   };
 
-window.addEventListener('keydown', addLetter);
-window.addEventListener('click', addLetter);
+  function clickLetter(e) {
+    let letter = ''
+    let endOfRow = activeRow * 6 + (activeRow-1);
+    if (e.target.id && document.getElementById(e.target.id).className.includes('keyboardkey')==true){
+        letter = e.target.id;
+        if (letter == 'enter') {
+            let newGuess = checkGuess(activeRow);
+            
+        }
+        else if (e.keyCode == 8 || letter == 'delete'){
+            if (activeTile > endOfRow - 6){
+                --activeTile
+            }
+            let currentTile = document.getElementById(`tile${activeTile}`);
+            currentTile.innerText = ' ';
+        }
+        //letters
+        else if (activeTile <= endOfRow && letter.length < 2 && isLetter(letter)){
+            let currentTile = document.getElementById(`tile${activeTile}`);
+            currentTile.innerText = letter;
+            ++activeTile;
+        }
+    }
+}
+
+
+
+window.addEventListener('keydown', typeLetter);
+window.addEventListener('click', clickLetter);
 
 
 //popup
@@ -93,18 +107,8 @@ function popupModal(text){
     xbutton.onclick = function() {
         modal.remove();
         event.stopPropagation();
-        // window.addEventListener('keydown', addLetter);
-        // window.addEventListener('click', addLetter);
     } 
 }
-
-
-
-
-
-
-
-
 
 //GUESS Functions
  function checkGuess(row){
@@ -132,13 +136,12 @@ function popupModal(text){
          let tileIndex = ((activeRow-1)*7) + i;
         if (guess[i] == theAnswer[i]){
             document.getElementById(`tile${tileIndex}`).classList.add('inplace');
-            console.log(guess[i].toUpperCase());
             document.getElementById(guess[i].toUpperCase()).classList.add('inword');
             ++correctLetters;
             if (correctLetters == 7){
                     popupModal(`You won with ${activeRow} guesses.`);
-                    window.removeEventListener('keydown', addLetter);
-                    window.removeEventListener('click', addLetter);
+                    window.removeEventListener('keydown', typeLetter);
+                    window.removeEventListener('click', clickLetter);
                     break;  
                 }
             }

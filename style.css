@@ -39,8 +39,8 @@ body {
     font-size: 200%;
     border: 2px black solid;
     border-radius: 6px;
-    width: 7vw;
-    height: 7vw;
+    width: 8vw;
+    height: 8vw;
     text-align: center;
     text-justify: center;
     padding: .5vw .5rem 2vw;
@@ -55,10 +55,10 @@ body {
     font-size: 5vw;
     border: 2px black solid;
     border-radius: 6px;
-    min-width: 1.7rem;
+    min-width: 1.8rem;
     text-align: center;
     text-justify: center;
-    padding: 1vw 1vw;
+    padding: 1.25vw 1.25vw;
 }
 .keyrow{
     display: flex;
