@@ -21,22 +21,28 @@ function buildWordBoard() {
  const keyboard = document.getElementById('keyboard');
 
  function addLetter(e) {
-    let letter = String.fromCharCode(e.keyCode);
+    let letter = ''
     let endOfRow = activeRow * 6 + (activeRow-1);
+    if (e.target.id && document.getElementById(e.target.id).className == 'keyboardkey'){
+        letter = e.target.id;
+    }
+    else {
+        letter = String.fromCharCode(e.keyCode);
+    }
     //letters
-    if (activeTile <= endOfRow && isLetter(letter)){
+    if (activeTile <= endOfRow && letter.length < 2 && isLetter(letter)){
         let currentTile = document.getElementById(`tile${activeTile}`);
         currentTile.innerText = letter;
         ++activeTile;
     }
     //enter
-    else if (e.keyCode == 13) {
+    else if (e.keyCode == 13 || letter == 'enter') {
         let newGuess = checkGuess(activeRow);
      
     }
     //backspace
-    else if (e.keyCode == 8){
-        if (activeTile>0){
+    else if (e.keyCode == 8 || letter == 'delete'){
+        if (activeTile > endOfRow - 6){
             --activeTile
         }
         let currentTile = document.getElementById(`tile${activeTile}`);
@@ -73,11 +79,10 @@ function popupModal(text){
     const popup = document.createElement('div');
     popup.id = 'popuptext';
     modalcontent.appendChild(popup);
-    
     popup.innerText = `\n${text}`;
     xbutton.onclick = function() {
-        console.log("x clicked");
         modal.remove();
+        event.stopPropagation();
         // window.addEventListener('keydown', addLetter);
         // window.addEventListener('click', addLetter);
     } 
@@ -102,9 +107,7 @@ function popupModal(text){
          guess += letter;
     }
     guess = guess.toLowerCase();
-    console.log('is ' + guess +' a valid word?');
     if (guess.length == 7 && allTheWords.includes(guess) == true){
-        console.log('the valid guess is ' + guess);
         checkLetters(guess);
         ++activeRow
     }
@@ -119,9 +122,13 @@ function popupModal(text){
          let tileIndex = ((activeRow-1)*7) + i;
         if (guess[i] == theAnswer[i]){
             document.getElementById(`tile${tileIndex}`).classList.add('inplace');
+            console.log(guess[i].toUpperCase());
+            document.getElementById(guess[i].toUpperCase()).classList.add('inword');
             ++correctLetters;
             if (correctLetters == 7){
                     popupModal(`You won with ${activeRow} guesses.`);
+                    window.removeEventListener('keydown', addLetter);
+                    window.removeEventListener('click', addLetter);
                     break;  
                 }
             }
@@ -129,6 +136,10 @@ function popupModal(text){
             for (let n=0; n<7; n++){
                 if (guess[i] == theAnswer[n] && n !== i){
                     document.getElementById(`tile${tileIndex}`).classList.add('inword');
+                    document.getElementById(guess[i].toUpperCase()).classList.add('inword');
+                }
+                else if (Array.from(theAnswer).includes(guess[i]) == false) {
+                    document.getElementById(guess[i].toUpperCase()).classList.add('notinword');
                 }
             }
         }

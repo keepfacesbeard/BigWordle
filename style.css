@@ -76,6 +76,10 @@ body {
     background-color: limegreen;
 }
 
+.notinword{
+    background-color: grey;
+}
+
 /* modal copy paste */
 .modal {
     position: fixed; /* Stay in place */
