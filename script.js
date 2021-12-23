@@ -159,7 +159,7 @@ function popupModal(text){
         }
     }
     if (activeRow == 6 && correctLetters < 7){
-        alert("You lost. Sorry. Better luck tomorrow.");
+        alert(`You lost. The answer was ${theAnswer}. Sorry. Better luck tomorrow.`);
     }
 
 
