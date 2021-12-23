@@ -21,6 +21,7 @@ for i in data:
         words.append(i)
 
 print(len(words))
+print(words[41996])
 
 wordlist = '","'.join(words)
 
