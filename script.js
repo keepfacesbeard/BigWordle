@@ -31,22 +31,16 @@ function buildWordBoard() {
  function addLetter(e) {
     let letter = ''
     let endOfRow = activeRow * 6 + (activeRow-1);
-    if (e.target.id && document.getElementById(e.target.id).className == 'keyboardkey'){
+    if (e.target.id && document.getElementById(e.target.id).className.includes('keyboardkey')==true){
         letter = e.target.id;
     }
     else {
         letter = String.fromCharCode(e.keyCode);
     }
-    //letters
-    if (activeTile <= endOfRow && letter.length < 2 && isLetter(letter)){
-        let currentTile = document.getElementById(`tile${activeTile}`);
-        currentTile.innerText = letter;
-        ++activeTile;
-    }
     //enter
-    else if (e.keyCode == 13 || letter == 'enter') {
+    if (e.keyCode == 13 || letter == 'enter') {
         let newGuess = checkGuess(activeRow);
-     
+        letter = ''
     }
     //backspace
     else if (e.keyCode == 8 || letter == 'delete'){
@@ -55,7 +49,15 @@ function buildWordBoard() {
         }
         let currentTile = document.getElementById(`tile${activeTile}`);
         currentTile.innerText = ' ';
+        letter=''
     }
+    //letters
+    else if (activeTile <= endOfRow && letter.length < 2 && isLetter(letter)){
+        let currentTile = document.getElementById(`tile${activeTile}`);
+        currentTile.innerText = letter;
+        ++activeTile;
+    }
+
     // if (e.repeat) return;
     // const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); //.key because key is class
     // if(!audio) return;
