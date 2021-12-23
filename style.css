@@ -75,7 +75,11 @@ body {
     font-size: 5vw;
 }
 
-
+.wordle{
+    color: cornflowerblue;
+    text-shadow:0px 2px 2px light plum;
+    font-weight: 600;
+}
 
 .inword {
     background-color: lightskyblue;

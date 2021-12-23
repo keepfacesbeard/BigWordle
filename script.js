@@ -24,13 +24,11 @@ function wordOfTheDay() {
     i -= 41000;
     i -= int1;
     i = Math.abs(i);
-    console.log("word of the day index: " +i);
-    // theAnswer = allTheWords[i];
+    theAnswer = allTheWords[i];
 }
 
 function randomNewWord(){
     let i = randomInteger(0, 41996);
-    console.log("random word index: " + i);
     theAnswer = allTheWords[i];
 }
 
