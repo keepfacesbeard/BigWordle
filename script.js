@@ -230,7 +230,10 @@ function popupModal(text){
     }
     
     if (activeRow == 6 && correctLetters < 7){
-        alert(`You lost. The answer was ${theAnswer.toUpperCase()}. Sorry. Better luck tomorrow.`);
+        popupModal(`You lost. The answer was ${theAnswer.toUpperCase()}. Sorry. Better luck tomorrow.`);
+        window.removeEventListener('keydown', typeLetter);
+        window.removeEventListener('click', clickLetter);
+        randomword.addEventListener('click', randomNewWord);
     }
  }
 
