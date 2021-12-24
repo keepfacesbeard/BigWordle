@@ -170,14 +170,16 @@ function popupModal(text){
     popup.id = 'popuptext';
     modalcontent.appendChild(popup);
     popup.innerText = `\n${text}`;
-    newGameBtn = document.createElement('button');
-    newGameBtn.innerText = "New game with a random word";
-    modalcontent.appendChild(newGameBtn);
-    newGameBtn.addEventListener('click', function() {
-        randomNewWord();
-        modal.remove();
-        event.stopPropagation();
-    });
+    if (activeRow >6){
+        newGameBtn = document.createElement('button');
+        newGameBtn.innerText = "New game with a random word";
+        modalcontent.appendChild(newGameBtn);
+        newGameBtn.addEventListener('click', function() {
+            randomNewWord();
+            modal.remove();
+            event.stopPropagation();
+        });
+    };
     xbutton.onclick = function() {
         modal.remove();
         event.stopPropagation();
